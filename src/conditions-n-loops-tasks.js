@@ -425,7 +425,7 @@ function rotateMatrix(matrix) {
 }
 
 /**
- * Sorts an array of numbers in ascending order in place.
+ * Sorts an array of numbers in ascending order.
  * Employ any sorting algorithm of your choice.
  * Take into account that the array can be very large. Consider how you can optimize your solution.
  * In this task, the use of methods of the Array and String classes is not allowed.
@@ -438,9 +438,43 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const a = arr;
+  function swap(items, leftIndex, rightIndex) {
+    const temp = items[leftIndex];
+    items[leftIndex] = items[rightIndex];
+    items[rightIndex] = temp;
+  }
+
+  function quickSort(items, low, high) {
+    if (low >= high) {
+      return;
+    }
+    let lt = low;
+    let gt = high;
+    const pivot = items[low];
+    let i = low;
+    while (i <= gt) {
+      if (items[i] < pivot) {
+        swap(items, lt, i);
+        lt += 1;
+        i += 1;
+      } else if (items[i] > pivot) {
+        swap(items, i, gt);
+        gt -= 1;
+      } else {
+        i += 1;
+      }
+    }
+    quickSort(items, low, lt - 1);
+    quickSort(items, gt + 1, high);
+  }
+
+  quickSort(a, 0, a.length - 1);
+  return a;
 }
+
+// console.log(sortByAsc([10, -5, 0, 3, -1, 0, 8, -20, 1])); // [-20, -5, -1,  0, 0, 1,  3,  8, 10 ]
 
 /**
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
