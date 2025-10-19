@@ -442,8 +442,10 @@ function sortByAsc(arr) {
   const a = arr;
   function swap(items, leftIndex, rightIndex) {
     const temp = items[leftIndex];
+    /* eslint-disable no-param-reassign */
     items[leftIndex] = items[rightIndex];
     items[rightIndex] = temp;
+    /* eslint-enable no-param-reassign */
   }
 
   function quickSort(items, low, high) {
