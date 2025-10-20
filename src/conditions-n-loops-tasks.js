@@ -429,6 +429,8 @@ function rotateMatrix(matrix) {
  * Employ any sorting algorithm of your choice.
  * Take into account that the array can be very large. Consider how you can optimize your solution.
  * In this task, the use of methods of the Array and String classes is not allowed.
+ * - eslint-disable no-param-reassign
+ * - eslint-enable no-param-reassign
  *
  * @param {number[]} arr - The array to sort.
  * @return {number[]} The sorted array.
@@ -440,39 +442,38 @@ function rotateMatrix(matrix) {
  */
 function sortByAsc(arr) {
   const a = arr;
-  function swap(items, leftIndex, rightIndex) {
-    const temp = items[leftIndex];
-    /* eslint-disable no-param-reassign */
-    items[leftIndex] = items[rightIndex];
-    items[rightIndex] = temp;
-    /* eslint-enable no-param-reassign */
+
+  function swap(leftIndex, rightIndex) {
+    const temp = a[leftIndex];
+    a[leftIndex] = a[rightIndex];
+    a[rightIndex] = temp;
   }
 
-  function quickSort(items, low, high) {
+  function quickSort(low, high) {
     if (low >= high) {
       return;
     }
     let lt = low;
     let gt = high;
-    const pivot = items[low];
+    const pivot = a[low];
     let i = low;
     while (i <= gt) {
-      if (items[i] < pivot) {
-        swap(items, lt, i);
+      if (a[i] < pivot) {
+        swap(lt, i);
         lt += 1;
         i += 1;
-      } else if (items[i] > pivot) {
-        swap(items, i, gt);
+      } else if (a[i] > pivot) {
+        swap(i, gt);
         gt -= 1;
       } else {
         i += 1;
       }
     }
-    quickSort(items, low, lt - 1);
-    quickSort(items, gt + 1, high);
+    quickSort(low, lt - 1);
+    quickSort(gt + 1, high);
   }
 
-  quickSort(a, 0, a.length - 1);
+  quickSort(0, a.length - 1);
   return a;
 }
 

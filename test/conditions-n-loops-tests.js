@@ -14,7 +14,7 @@ describe('core-js-conditions-n-loops', () => {
       assert.equal(
         forbidden.isCommented(tasks.isPositive),
         false,
-        `Be sure to remove comments f/* eslint-enable no-param-reassign */rom the final solution`
+        `Be sure to remove comments from the final solution`
       );
     }
   );
@@ -477,11 +477,11 @@ describe('core-js-conditions-n-loops', () => {
       tasks.sortByAsc(sourceArray);
       assert.deepEqual(sourceArray, sortedArr);
     }
-    // assert.equal(
-    //   forbidden.isCommented(tasks.sortByAsc),
-    //   false,
-    //   `Be sure to remove comments from the final solution`
-    // );
+    assert.equal(
+      forbidden.isCommented(tasks.sortByAsc),
+      false,
+      `Be sure to remove comments from the final solution`
+    );
     assert.equal(
       forbidden.isArrayUsed(tasks.sortByAsc),
       false,
