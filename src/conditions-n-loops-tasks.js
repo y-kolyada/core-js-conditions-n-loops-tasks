@@ -547,11 +547,61 @@ function shuffleChar(str, iterations) {
  * 1203450  => 1203504
  * 90822    => 92028
  * 321321   => 322113
- *
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+
+function getNearestBigger(number) {
+  const digits = [];
+  let temp = number;
+  while (temp > 0) {
+    digits.unshift(temp % 10);
+    temp = Math.floor(temp / 10);
+  }
+
+  let i = digits.length - 2;
+  while (i >= 0 && digits[i] >= digits[i + 1]) {
+    i -= 1;
+  }
+
+  if (i < 0) {
+    return number;
+  }
+
+  let j = digits.length - 1;
+  while (digits[j] <= digits[i]) {
+    j -= 1;
+  }
+
+  [digits[i], digits[j]] = [digits[j], digits[i]];
+
+  const rightPart = [];
+  for (let k = i + 1; k < digits.length; k += 1) {
+    rightPart.push(digits[k]);
+  }
+  rightPart.sort((a, b) => a - b);
+
+  const resultDigits = [];
+  for (let k = 0; k <= i; k += 1) {
+    resultDigits.push(digits[k]);
+  }
+  for (let k = 0; k < rightPart.length; k += 1) {
+    resultDigits.push(rightPart[k]);
+  }
+
+  let result = 0;
+  for (let k = 0; k < resultDigits.length; k += 1) {
+    result = result * 10 + resultDigits[k];
+  }
+
+  return result;
 }
+
+// console.log(getNearestBigger(12345)); // 12354
+// console.log(getNearestBigger(123450)); // 123504
+// console.log(getNearestBigger(12344)); // 12434
+// console.log(getNearestBigger(123440)); // 124034
+// console.log(getNearestBigger(1203450)); // 1203504
+// console.log(getNearestBigger(90822)); // 92028
+// console.log(getNearestBigger(321321)); // 322113
 
 module.exports = {
   isPositive,
